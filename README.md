@@ -1,119 +1,470 @@
-# Swiss Real Estate Retrieval Pipeline
+# Datathon 2026 Challenge Harness
 
-Hybrid retrieval system for Swiss apartment listings using dense (Qwen3-0.6B) and sparse (BGE-M3) embeddings.
+> Built with Claude Code and AWS EC2 — see [aws.md](aws.md) and [CLAUDE.md](CLAUDE.md).
 
----
+Demo Video: https://drive.google.com/file/d/1V98dlAsOfrwu3g5DToSiGAzXopMvh75-/view?usp=sharing
 
-## Data
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/42b48e9c-3e90-4ea2-b7b7-4f36599b40e3" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/19e24650-a52c-42fb-b180-9690695f7aa8" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/b0fa0b63-5fad-4c69-9441-eafae70c786b" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/a80984c9-6371-4829-bff9-987f718fb6c8" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/69b0e52a-4f5c-4ce8-8659-14c1361e0762" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/05edbadf-974d-49ad-9559-1c3fea9d5b19" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/e49a9df1-2c35-4196-84ea-5e9890571cac" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/b1a76407-1079-424b-ad1e-291806fdfb5e" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/189315f5-b1f2-4eee-83a8-d8f37ff9ce8c" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/7b2a4f00-4c61-4385-b2a4-10cae052f017" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/13280ae5-bda8-4dbc-a366-624742f67fdf" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/d93eabb4-6677-430b-9aeb-3ce79129c531" />
+<img width="800" style="height: auto;" alt="image" src="https://github.com/user-attachments/assets/eae80919-5227-4428-9758-cbb05f27421f" />
 
-| File | Rows | Notes |
-|---|---|---|
-| `structured_data_withimages_updated.csv` | 6,887 | Primary scrape; all rows have images |
-| `structured_data_withoutimages-1776412361239.csv` | 6,757 | No image URLs; zero overlap with above |
-| **Total unique listings** | **13,644** | |
 
-Both files share the same 52-column schema. Key columns used for text building:
 
-`title`, `object_description`, `object_city`, `object_state`, `number_of_rooms`, `area`, `price`, `floor`, `year_built`, `distance_public_transport`, `prop_balcony`, `prop_elevator`, `prop_parking`, `prop_garage`, `prop_fireplace`, `prop_child_friendly`, `animal_allowed`, `is_new_building`
 
----
+This repository is a minimal starter harness for participants building listing search and ranking systems.
 
-## Models
+Using this harness is optional. You are free to build your submission with it, adapt only parts of it, or implement your own solution independently.
 
-| Model | Role | Local path |
-|---|---|---|
-| `Qwen/Qwen3-0.6B` | Dense retrieval scorer (main) | `models/Qwen3-0.6B/` |
-| `BAAI/bge-m3` | Sparse scorer (replaces BM25) | `models/bge-m3/` |
+It gives you:
 
-Downloaded via `huggingface_hub.snapshot_download`, safetensors only (`.pt` / TF / Flax excluded).
+- a FastAPI server
+- a minimal Apps SDK / MCP app
+- a Vite + React widget app
+- committed listings CSVs under `raw_data/`
+- optional raw source bundles under `raw_data/` that can be normalized into harness CSVs
+- automatic CSV -> SQLite bootstrap on startup
+- a simple hard-filter search module
+- stub extraction, soft filtering, and ranking flow
+- Docker and Docker Compose setup
 
-### Dependency note
+The important point: this is a starter harness, not a reference solution and not the required submission format. Use it only if it helps your team move faster.
 
-FlagEmbedding 1.3.5 requires `transformers==4.51.x` — versions 4.47 and below don't support the `qwen3` architecture; versions 5.x removed `is_torch_fx_available` which FlagEmbedding imports internally.
+## The Data
 
-```
-pip install transformers==4.51.3 FlagEmbedding datasets peft sentencepiece \
-            huggingface_hub sentence-transformers einops accelerate
-```
+Download the challenge data bundle from the organizer-provided link, then extract `raw_data.zip` into the root of this repository. The starter harness expects that layout.
 
----
+There are data with and without images.
+With images:
 
-## Pipeline
+- robinreal
+- sred (montage) <- these are missing addresses, but have lat long, you may use geo reverse search as e.g. https://nominatim.org/ has
+- structured
 
-### Step 1 — Text representation (`listing_text.py`)
+## Where To Edit
 
-Converts a raw CSV row into a natural-language string for embedding or BM25.
+If you choose to use the starter harness, the main participant-owned extension points are under `app/participant/`:
 
-**Key functions:**
+- `hard_fact_extraction.py`
+- `soft_fact_extraction.py`
+- `soft_filtering.py`
+- `ranking.py`
+- `listing_row_parser.py`
 
-- `normalise_row(raw)` — maps CSV column names to canonical names, coerces feature flags to `int`, strips literal `"NULL"` / `"nicht verfügbar"` strings, strips HTML from description.
-- `build_listing_text(row)` — concatenates scalar fields and active boolean features into a readable sentence sequence. Features with value `0` or NULL are omitted.
-- `build_query_text(query, qwen=False)` — prepends the Qwen3 instruction prefix for query encoding; pass-through for BGE-M3.
+Starter-harness glue code lives under `app/harness/`:
 
-**Instruction prefix used for Qwen3 queries:**
-```
-Instruct: Given a Swiss real estate search query, retrieve the most relevant apartment listing.
-Query: <query>
-```
+- `search_service.py`
+- `bootstrap.py`
+- `csv_import.py`
 
-### Step 2 — Build text mapping (`build_text_mapping.py`)
+Those files handle orchestration, startup wiring, and import flow.
 
-Reads both CSVs, deduplicates by `id`, and writes one JSON record per listing.
+## Quick Start
 
-```bash
-python3 build_text_mapping.py
-```
+### Run locally
 
-Output: `listing_texts.jsonl`
-```jsonl
-{"id": "24544", "text": "Title: Moderne Loft-Wohnung ... Description: ..."}
-{"id": "24545", "text": "Title: Bureaux à louer ..."}
-```
-
-### Step 3 — Validate mapping (`check_mapping.py`)
-
-Spot-checks first 20 JSONL rows against the source CSV to confirm no fields or features are silently dropped.
-
-```bash
-python3 check_mapping.py
-```
-
-Prints a table with per-row status (`OK` / `-` = source was NULL / `MISS` = value present but not found in text) and lists any active features that failed to appear in the output text.
-
-### Step 4 — Generate embeddings (`build_embeddings.py`)
-
-Encodes all 13,644 listings in batches of 64.
+Install dependencies:
 
 ```bash
-python3 build_embeddings.py
+uv sync --dev
 ```
 
-**Dense (Qwen3-0.6B):**
-- Mean-pool over last hidden states, then L2-normalise
-- Saved to `embeddings_dense.npz` — keys: `ids` (str array), `vecs` (float32 matrix `[13644, 1024]`)
+Start the API:
 
-**Sparse (BGE-M3):**
-- Lexical weights per token (replaces BM25)
-- Saved to `embeddings_sparse.jsonl` — one line per listing: `{"id": "...", "weights": {"token": score, ...}}`
-
----
-
-## File tree
-
+```bash
+uv run uvicorn app.main:app --reload
 ```
-/workshop/
-├── README.md
-├── listing_text.py              # text builder + column normaliser
-├── build_text_mapping.py        # CSV → listing_texts.jsonl
-├── check_mapping.py             # 20-row QA check
-├── build_embeddings.py          # JSONL → dense .npz + sparse .jsonl
-├── listing_texts.jsonl          # 13,644 text records
-├── embeddings_dense.npz         # Qwen3 dense vectors
-├── embeddings_sparse.jsonl      # BGE-M3 sparse weights
-├── structured_data_withimages_updated.csv
-├── structured_data_withoutimages-1776412361239.csv
-└── models/
-    ├── Qwen3-0.6B/
-    └── bge-m3/
+
+The API will be available at:
+
+```text
+http://localhost:8000
 ```
-# datathon-robinreal-challenge
+
+### Run with Docker
+
+```bash
+docker compose up --build
+```
+
+This starts the API on port `8000`.
+
+The SQLite database is built automatically from the committed CSVs in `raw_data/` on first startup and stored in the mounted `/data` volume.
+
+If the SRED raw bundle is present under `raw_data/SRED_data(1)`, the harness also generates `raw_data/sred_data.csv` from the `*_with_text.csv` files, flattens the needed montage images into `raw_data/sred_images/`, and serves them locally under `/raw-data-images/<platform_id>.jpeg`.
+
+## Apps SDK MCP App
+
+This repository also includes a minimal split MCP app for ChatGPT and other MCP Apps-compatible clients such as Claude Desktop / Web.
+
+Shape:
+
+- FastAPI harness: data service
+- `apps_sdk/server`: MCP bridge
+- `apps_sdk/web`: Vite + React widget
+
+The MCP app is intentionally thin:
+
+- one tool only: `search_listings`
+- no authentication
+- no write actions
+- one combined UI with ranked list + map
+
+You may extend it, but you do not need to. The challenge focus is search quality, not Apps SDK integration.
+
+### Build the widget
+
+```bash
+cd apps_sdk/web
+npm install
+npm run build
+```
+
+### Run the MCP app
+
+In one shell, run the FastAPI harness:
+
+```bash
+uv run uvicorn app.main:app --reload --port 8000
+```
+
+In another shell, run the MCP server:
+
+```bash
+uv run uvicorn apps_sdk.server.main:app --reload --port 8001
+```
+
+The MCP endpoint is:
+
+```text
+http://localhost:8001/mcp
+```
+
+For tunnel testing, the minimal env setup is:
+
+```bash
+export APPS_SDK_LISTINGS_API_BASE_URL=http://localhost:8000
+export APPS_SDK_PUBLIC_BASE_URL=https://your-public-url
+```
+
+The widget HTML uses `APPS_SDK_PUBLIC_BASE_URL` to build its JS and CSS asset URLs. If this stays at the default `http://localhost:8001`, remote MCP hosts can reach the server but still fail to load the widget assets.
+
+These are the MCP-related env vars used by the split app:
+
+```bash
+export APPS_SDK_LISTINGS_API_BASE_URL=http://localhost:8000
+export APPS_SDK_PUBLIC_BASE_URL=https://your-public-url
+export MCP_ALLOWED_HOSTS=your-public-host
+export MCP_ALLOWED_ORIGINS=https://your-public-url
+```
+
+Meaning:
+
+- `APPS_SDK_LISTINGS_API_BASE_URL`: where the MCP server calls the local FastAPI harness
+- `APPS_SDK_PUBLIC_BASE_URL`: the public origin used for widget JS/CSS asset URLs
+- `MCP_ALLOWED_HOSTS`: optional public hostname allowlist for MCP transport protection
+- `MCP_ALLOWED_ORIGINS`: optional public HTTPS origin allowlist for MCP transport protection
+
+For local development and simple Cloudflare tunnel testing, leave `MCP_ALLOWED_HOSTS` and `MCP_ALLOWED_ORIGINS` unset. If you set them incorrectly, the MCP server can reject requests with `421 Misdirected Request`.
+
+### Testing in ChatGPT or other MCP Apps clients
+
+https://developers.openai.com/apps-sdk/deploy/testing (requires active subscription)
+https://modelcontextprotocol.io/extensions/apps/build#testing-with-claude
+
+For local testing in either client, expose the MCP server with a tunnel and point the client to:
+
+```text
+https://your-public-url/mcp
+```
+
+#### `cloudflared` example
+
+Start the FastAPI harness and MCP server locally first:
+
+```bash
+uv run uvicorn app.main:app --reload --port 8000
+uv run uvicorn apps_sdk.server.main:app --reload --port 8001
+```
+
+In another shell, open a tunnel to the MCP server:
+
+```bash
+npx cloudflared tunnel --url http://localhost:8001
+```
+
+`cloudflared` will print a public URL like:
+
+```text
+https://random-name.trycloudflare.com
+```
+
+Then export:
+
+```bash
+export APPS_SDK_LISTINGS_API_BASE_URL=http://localhost:8000
+export APPS_SDK_PUBLIC_BASE_URL=https://random-name.trycloudflare.com
+```
+
+Then restart the MCP server so it picks up the env vars:
+
+```bash
+uv run uvicorn apps_sdk.server.main:app --reload --port 8001
+```
+
+Register this MCP URL in ChatGPT or another MCP Apps client:
+
+```text
+https://random-name.trycloudflare.com/mcp
+```
+
+For pure local development and simple tunnel testing, the server accepts requests when those variables are unset. Only add them if you specifically want stricter host/origin enforcement and know the exact values you need.
+
+### Smoke test the MCP server
+
+You can run a small protocol-level smoke test before connecting a real host. It checks:
+
+- `initialize`
+- `tools/list`
+- `resources/list`
+- `resources/read`
+
+First build the widget and start the MCP server, then run:
+
+```bash
+uv run python scripts/mcp_smoke.py --url http://localhost:8001/mcp
+```
+
+If it passes, you know the MCP server is serving the `search_listings` tool and the widget resource with the expected metadata shape.
+
+## API
+
+### `GET /health`
+
+Simple health check.
+
+Example:
+
+```bash
+curl http://localhost:8000/health
+```
+
+### `POST /listings`
+
+High-level challenge entrypoint.
+
+This endpoint accepts only the natural-language user query and sends it through the full harness flow:
+
+```text
+query
+-> extract_hard_facts
+-> extract_soft_facts
+-> filter_hard_facts
+-> filter_soft_facts
+-> rank_listings
+```
+
+Important:
+
+- by default, `extract_hard_facts` is a stub and does not interpret the query
+- by default, soft filtering and ranking are placeholders
+- this endpoint exists to show the intended flow, not to provide a real baseline
+
+Example request:
+
+```bash
+curl -X POST http://localhost:8000/listings \
+  -H "content-type: application/json" \
+  -d '{
+    "query": "3 room bright apartment in Zurich under 2800 CHF",
+    "limit": 25,
+    "offset": 0
+  }'
+```
+
+If you omit `limit`, the harness defaults to returning the top `25` listings. Since query understanding is stubbed by default, this makes the endpoint immediately usable for UI and Apps SDK testing.
+
+### `POST /listings/search/filter`
+
+Low-level search entrypoint.
+
+This endpoint accepts only explicit hard filters. It is useful if you want to call the structured search directly, for example from your own app, service, or MCP tool.
+
+Example request:
+
+```bash
+curl -X POST http://localhost:8000/listings/search/filter \
+  -H "content-type: application/json" \
+  -d '{
+    "hard_filters": {
+      "city": ["Winterthur"],
+      "features": ["child_friendly"],
+      "latitude": 47.4988,
+      "longitude": 8.7237,
+      "radius_km": 5,
+      "min_price": 1000,
+      "max_price": 3000,
+      "min_rooms": 2.0,
+      "max_rooms": 4.5,
+      "limit": 5,
+      "offset": 0,
+      "sort_by": "price_asc"
+    }
+  }'
+```
+
+### Response format
+
+Both endpoints in the starter harness currently return a wrapper object in this shape:
+
+```json
+{
+  "listings": [
+    {
+      "listing_id": "123",
+      "score": 1.0,
+      "reason": "Matched hard filters; soft ranking stub.",
+      "listing": {
+        "id": "123",
+        "title": "Example listing",
+        "city": "Zurich",
+        "latitude": 47.37,
+        "longitude": 8.54,
+        "price_chf": 2500,
+        "rooms": 3.0
+      }
+    }
+  ],
+  "meta": {}
+}
+```
+
+The `listings` key contains the ranked results. The `meta` key is intentionally left open so teams can add extracted filters, debug info, or other useful response metadata later.
+
+## Supported Hard Filters
+
+The default hard-filter implementation supports simple structured filters over the SQLite database:
+
+- `city`
+- `postal_code`
+- `canton`
+- `min_price`
+- `max_price`
+- `min_rooms`
+- `max_rooms`
+- `latitude`
+- `longitude`
+- `radius_km`
+- `features`
+- `offer_type`
+- `object_category`
+- `limit`
+- `offset`
+- `sort_by`
+
+This logic is intentionally simple and isolated so teams can replace it easily.
+
+## Where To Customize
+
+If you want to build your submission on top of this starter, the main extension points are:
+
+- [app/participant/hard_fact_extraction.py](app/participant/hard_fact_extraction.py)
+  Stub for natural-language hard fact extraction.
+- [app/participant/soft_fact_extraction.py](app/participant/soft_fact_extraction.py)
+  Stub for extracting softer preferences from the query.
+- [app/participant/soft_filtering.py](app/participant/soft_filtering.py)
+  Stub for post-filtering candidates after hard filtering.
+- [app/participant/ranking.py](app/participant/ranking.py)
+  Stub ranking logic and result shaping.
+- [app/participant/listing_row_parser.py](app/participant/listing_row_parser.py)
+  CSV-row parsing and feature extraction logic.
+- [app/core/hard_filters.py](app/core/hard_filters.py)
+  The current structured filter implementation over SQLite.
+- [app/harness/search_service.py](app/harness/search_service.py)
+  High-level orchestration between extraction, filtering, and ranking.
+- [app/harness/bootstrap.py](app/harness/bootstrap.py)
+  Database bootstrap lifecycle.
+- [app/harness/csv_import.py](app/harness/csv_import.py)
+  CSV import and schema/index creation.
+- [app/core/s3.py](app/core/s3.py)
+  Helper functions for loading listing image URLs from S3 by `listing_id`.
+- [apps_sdk/server/main.py](apps_sdk/server/main.py)
+  Minimal MCP Apps bridge exposing the single `search_listings` tool.
+- [apps_sdk/web/src/App.tsx](apps_sdk/web/src/App.tsx)
+  Combined ranked-list plus map widget.
+- [app/api/routes/listings.py](app/api/routes/listings.py)
+  API surface for the two listing endpoints.
+
+## Project Structure
+
+```text
+app/
+  api/routes/listings.py     API endpoints
+  core/hard_filters.py       hard-filter search logic
+  core/s3.py                 S3 image helper functions
+  harness/bootstrap.py       database bootstrap lifecycle
+  harness/csv_import.py      CSV -> SQLite import helpers
+  harness/search_service.py  high-level orchestration
+  models/schemas.py          request/response models
+  participant/               participant-editable logic
+apps_sdk/
+  server/                    MCP Apps bridge
+  web/                       Vite React widget app
+raw_data.zip                 GET THIS FROM S3
+tests/                       basic harness tests
+docker-compose.yml           local container runtime
+```
+
+## Development
+
+Run the tests:
+
+```bash
+uv run pytest tests -q
+```
+
+If you want to rebuild the SQLite database from scratch, remove the generated database file or clear the mounted Docker volume and restart the service.
+
+## AWS Credentials
+
+The S3 helper in `app/core/s3.py` uses `boto3` and the standard AWS credential chain. For example:
+
+```bash
+export AWS_ACCESS_KEY_ID=...
+export AWS_SECRET_ACCESS_KEY=...
+export AWS_DEFAULT_REGION=eu-central-2
+```
+
+Optional S3 config:
+
+```bash
+export LISTINGS_S3_BUCKET=crawl-data-951752554117-eu-central-2-an
+export LISTINGS_S3_REGION=eu-central-2
+export LISTINGS_S3_PREFIX=prod
+```
+
+## Download All Images From S3
+
+If you want a full local copy of the listing images, the simplest option is to copy the whole `prod/` prefix with the AWS CLI. The image files are stored under paths like `prod/<source>/images/...`, so starting from the `prod/` root will include every image tree.
+
+Example:
+
+```bash
+export AWS_DEFAULT_REGION=eu-central-2
+export LISTINGS_S3_BUCKET=crawl-data-951752554117-eu-central-2-an
+export LISTINGS_S3_PREFIX=prod
+
+aws s3 cp \
+  "s3://${LISTINGS_S3_BUCKET}/${LISTINGS_S3_PREFIX}/" \
+  ./downloads/prod \
+  --recursive
+```
