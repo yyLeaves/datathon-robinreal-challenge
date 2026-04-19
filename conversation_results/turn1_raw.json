@@ -1,0 +1,192 @@
+{
+  "query": "We are a family with one child and are looking in Zug or Baar for an apartment with 3.5 or 4 rooms, at least 85 m², budget up to CHF 3600, ideally in an area with good schools, little traffic, and some greenery nearby.",
+  "extracted": {
+    "hard_filters": {
+      "cities": [
+        "Zug",
+        "Baar"
+      ],
+      "districts": [],
+      "cantons": [],
+      "price_chf_max": 3600,
+      "price_chf_min": null,
+      "rooms_min": 3.5,
+      "rooms_max": 4.0,
+      "area_sqm_min": 85,
+      "area_sqm_max": null,
+      "required_features": [],
+      "property_type": "apartment",
+      "furnished": null,
+      "available_from": null
+    },
+    "soft_structured": {
+      "preferred_features": [],
+      "avoid_features": []
+    },
+    "soft_semantic": {
+      "brightness": 0.0,
+      "modernity": 0.0,
+      "condition": 0.0,
+      "spaciousness": 0.0,
+      "kitchen_appeal": 0.0,
+      "bathroom_appeal": 0.0,
+      "quietness": 0.6,
+      "safety": 0.0,
+      "family_friendly": 0.8,
+      "near_lake_or_green": 0.7,
+      "free_text": "good schools in area"
+    },
+    "commute": null,
+    "relaxation_priority": [
+      "near_lake_or_green",
+      "family_friendly",
+      "quietness",
+      "area_sqm_min",
+      "rooms_max",
+      "price_chf_max"
+    ],
+    "clarifications_needed": [],
+    "profile_fields_used": []
+  },
+  "total_candidates": 3,
+  "backend_relaxations_applied": [
+    "rooms",
+    "price"
+  ],
+  "our_relaxations": [
+    {
+      "round_idx": 1,
+      "dropped": [
+        "near_lake_or_green"
+      ],
+      "total_candidates": 3
+    },
+    {
+      "round_idx": 2,
+      "dropped": [
+        "family_friendly"
+      ],
+      "total_candidates": 3
+    },
+    {
+      "round_idx": 3,
+      "dropped": [
+        "quietness"
+      ],
+      "total_candidates": 3
+    }
+  ],
+  "results": [
+    {
+      "listing_id": "213497",
+      "score": 0.048916,
+      "city": "Zug",
+      "canton": "ZG",
+      "price_chf": 2420,
+      "rooms": 3.5,
+      "area_sqm": 85,
+      "features": [
+        "elevator"
+      ],
+      "street": "Loretohöhe 2",
+      "title": "Ihr neues Zuhause im Loretoquartier",
+      "hero_image_url": "https://assets-comparis.b-cdn.net/image/upload/s--BF6PbocQ--/f_jpg,q_auto/v1/immobilien/Images/DataCollect/b59b006b-ea86-327e-95d9-1eed96dc8169.jpg",
+      "original_url": "https://www.comparis.ch/immobilien/marktplatz/details/show/37094709",
+      "brightness_score": null,
+      "modernity_score": null,
+      "condition_score": null,
+      "spaciousness_score": null,
+      "kitchen_appeal_score": null,
+      "bathroom_appeal_score": null,
+      "_rank": {
+        "base_score": 0.0489,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.0293,
+        "reasons": []
+      }
+    },
+    {
+      "listing_id": "59082",
+      "score": 0.048395,
+      "city": "Baar",
+      "canton": "ZG",
+      "price_chf": 4090,
+      "rooms": 4.5,
+      "area_sqm": 90,
+      "features": [],
+      "street": "Zugerstrasse 49",
+      "title": "Möblierte 4.5-Zimmer-Wohnung zu vermieten",
+      "hero_image_url": "https://assets.comparis.ch/image/upload/s--aNjIKSoG--/f_auto,q_auto/v1/immobilien/Images/DataCollect/e935187a-6d94-a82d-a4ee-ff82bbc1753f.jpg",
+      "original_url": "https://www.comparis.ch/immobilien/marktplatz/details/show/36578308",
+      "brightness_score": null,
+      "modernity_score": null,
+      "condition_score": null,
+      "spaciousness_score": null,
+      "kitchen_appeal_score": null,
+      "bathroom_appeal_score": null,
+      "_rank": {
+        "base_score": 0.0484,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.029,
+        "reasons": []
+      }
+    },
+    {
+      "listing_id": "221406",
+      "score": 0.047875,
+      "city": "Zug",
+      "canton": "ZG",
+      "price_chf": 3970,
+      "rooms": 3.5,
+      "area_sqm": 87,
+      "features": [],
+      "street": "Alpenstrasse 11",
+      "title": "Exklusives Wohnen im Zentrum von Zug",
+      "hero_image_url": "https://assets-comparis.b-cdn.net/image/upload/s--HTYo8RAm--/f_jpg,q_auto/v1/immobilien/Images/DataCollect/aa1fef11-903c-9aa3-4c0e-ee1048d04f9c.jpg",
+      "original_url": "https://www.comparis.ch/immobilien/marktplatz/details/show/37119505",
+      "brightness_score": 4,
+      "modernity_score": 5,
+      "condition_score": 5,
+      "spaciousness_score": 4,
+      "kitchen_appeal_score": 5,
+      "bathroom_appeal_score": 4,
+      "_rank": {
+        "base_score": 0.0479,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.0287,
+        "reasons": []
+      }
+    }
+  ],
+  "explanations": {
+    "headline": "3 apartments in Zug/Baar found, but soft criteria like greenery and quiet couldn't be confirmed",
+    "caveats": [
+      "No listings could be verified for proximity to green spaces, family-friendliness, or quietness — all three soft criteria were dropped during search relaxation.",
+      "Two listings (59082 and 221406) exceed your CHF 3600 budget by CHF 490–790.",
+      "Listing 59082 is furnished and has 4.5 rooms, slightly outside your stated room range."
+    ],
+    "per_listing": [
+      {
+        "listing_id": "213497",
+        "why": "Best match: Zug, 3.5 rooms, exactly 85 m², CHF 2420 — well under budget. Has elevator. Located in Loretoquartier."
+      },
+      {
+        "listing_id": "59082",
+        "why": "Baar, 4.5 rooms, 90 m², but CHF 4090 exceeds budget by CHF 490. Furnished, which may not suit all families."
+      },
+      {
+        "listing_id": "221406",
+        "why": "Zug city centre, 3.5 rooms, 87 m², CHF 3970 — over budget by CHF 370. Central location may mean more traffic noise."
+      }
+    ]
+  },
+  "profile_fields_used": [],
+  "profile_updated": false,
+  "profile_snapshot": null
+}

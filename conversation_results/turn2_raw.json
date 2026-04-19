@@ -1,0 +1,250 @@
+{
+  "query": "That is a good start. Can we see something a bit cheaper, ideally under CHF 3000?",
+  "extracted": {
+    "hard_filters": {
+      "cities": [],
+      "districts": [],
+      "cantons": [],
+      "price_chf_max": 3000,
+      "price_chf_min": null,
+      "rooms_min": null,
+      "rooms_max": null,
+      "area_sqm_min": null,
+      "area_sqm_max": null,
+      "required_features": [],
+      "property_type": null,
+      "furnished": null,
+      "available_from": null
+    },
+    "soft_structured": {
+      "preferred_features": [],
+      "avoid_features": []
+    },
+    "soft_semantic": {
+      "brightness": 0.0,
+      "modernity": 0.0,
+      "condition": 0.0,
+      "spaciousness": 0.0,
+      "kitchen_appeal": 0.0,
+      "bathroom_appeal": 0.0,
+      "quietness": 0.0,
+      "safety": 0.0,
+      "family_friendly": 0.0,
+      "near_lake_or_green": 0.0,
+      "free_text": "looking for a more affordable option"
+    },
+    "commute": null,
+    "relaxation_priority": [
+      "price_chf_max"
+    ],
+    "clarifications_needed": [
+      "Which city or region are you interested in?",
+      "How many rooms do you need?",
+      "Any other requirements from your previous search?"
+    ],
+    "profile_fields_used": []
+  },
+  "total_candidates": 4865,
+  "backend_relaxations_applied": null,
+  "our_relaxations": [],
+  "results": [
+    {
+      "listing_id": "27375",
+      "score": 0.02312,
+      "city": "Oeschgen",
+      "canton": "AG",
+      "price_chf": 1950,
+      "rooms": 2.5,
+      "area_sqm": 107,
+      "features": [
+        "balcony",
+        "elevator"
+      ],
+      "street": null,
+      "title": "GROSSZÜGIG MIT OFFENEM RAUMKONZEPT",
+      "hero_image_url": "https://assets.comparis.ch/image/upload/s--_6o-4l2o--/f_auto,q_auto/v1/immobilien/Images/DataCollect/2d27ca6f-dba4-ef12-623a-5445730639f6.jpg",
+      "original_url": "https://www.comparis.ch/immobilien/marktplatz/details/show/36518572",
+      "brightness_score": null,
+      "modernity_score": null,
+      "condition_score": null,
+      "spaciousness_score": null,
+      "kitchen_appeal_score": null,
+      "bathroom_appeal_score": null,
+      "_rank": {
+        "base_score": 0.0231,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.0139,
+        "reasons": []
+      }
+    },
+    {
+      "listing_id": "27385",
+      "score": 0.018743,
+      "city": "Bern",
+      "canton": "BE",
+      "price_chf": 1860,
+      "rooms": 3.5,
+      "area_sqm": null,
+      "features": [
+        "balcony",
+        "elevator",
+        "parking",
+        "garage",
+        "fireplace",
+        "child_friendly",
+        "pets_allowed",
+        "wheelchair_accessible",
+        "private_laundry",
+        "minergie_certified"
+      ],
+      "street": "Wylerfeldstrasse 11",
+      "title": "ERSTVERMIETUNG: 3,5-Zimmerwohnung mit Balkon",
+      "hero_image_url": "https://assets.comparis.ch/image/upload/s--mSZ0DXsm--/f_auto,q_auto/v1/immobilien/Images/DataCollect/28b6b336-3e45-b283-87a8-a978da6540e9.jpg",
+      "original_url": "https://www.comparis.ch/immobilien/marktplatz/details/show/36514420",
+      "brightness_score": null,
+      "modernity_score": null,
+      "condition_score": null,
+      "spaciousness_score": null,
+      "kitchen_appeal_score": null,
+      "bathroom_appeal_score": null,
+      "_rank": {
+        "base_score": 0.0187,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.0112,
+        "reasons": []
+      }
+    },
+    {
+      "listing_id": "212032",
+      "score": 0.01832,
+      "city": "Zürich",
+      "canton": "ZH",
+      "price_chf": 3000,
+      "rooms": 3.5,
+      "area_sqm": 90,
+      "features": [
+        "balcony",
+        "elevator",
+        "minergie_certified",
+        "furnished"
+      ],
+      "street": "Freilagerstrasse",
+      "title": "3.5 Zimmer Familienwohnung zur Untermiete (17.04 bis 15.05)",
+      "hero_image_url": "https://assets-comparis.b-cdn.net/image/upload/s--WBtxiQ1D--/f_jpg,q_auto/v1/immobilien/Images/DataCollect/ed506ce3-85d9-e41c-8edc-479e241819f3.jpg",
+      "original_url": "https://www.comparis.ch/immobilien/marktplatz/details/show/37009412",
+      "brightness_score": null,
+      "modernity_score": null,
+      "condition_score": null,
+      "spaciousness_score": null,
+      "kitchen_appeal_score": null,
+      "bathroom_appeal_score": null,
+      "_rank": {
+        "base_score": 0.0183,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.011,
+        "reasons": []
+      }
+    },
+    {
+      "listing_id": "6967c6efbb38f258c15febd6",
+      "score": 0.017707,
+      "city": "Burgdorf",
+      "canton": "BE",
+      "price_chf": 1235,
+      "rooms": 2.5,
+      "area_sqm": 46,
+      "features": [
+        "balcony",
+        "elevator"
+      ],
+      "street": "Uferweg 24",
+      "title": "Mietzinsgünstige 2.5-Zimmerwohnung zu vermieten!",
+      "hero_image_url": "https://crawl-data-951752554117-eu-central-2-an.s3.eu-central-2.amazonaws.com/prod/robinreal/images/platform_id=6967c6efbb38f258c15febd6/0-ff0000000032378770.jpg",
+      "original_url": "https://www.robinreal.ai/suchen/6967c6efbb38f258c15febd6",
+      "brightness_score": 5,
+      "modernity_score": 5,
+      "condition_score": 5,
+      "spaciousness_score": 4,
+      "kitchen_appeal_score": 4,
+      "bathroom_appeal_score": 4,
+      "_rank": {
+        "base_score": 0.0177,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.0106,
+        "reasons": []
+      }
+    },
+    {
+      "listing_id": "27405",
+      "score": 0.017616,
+      "city": "Valangin",
+      "canton": "NE",
+      "price_chf": 1400,
+      "rooms": 3.0,
+      "area_sqm": 75,
+      "features": [
+        "child_friendly",
+        "pets_allowed"
+      ],
+      "street": "Place de la Collégiale 1",
+      "title": "Bel appartement de 3 pièces à Valangin",
+      "hero_image_url": "https://assets.comparis.ch/image/upload/s--q0nLX1Ea--/f_auto,q_auto/v1/immobilien/Images/DataCollect/733b02b2-ab86-ec64-95b2-2ce9a8dd4f5a.jpg",
+      "original_url": "https://www.comparis.ch/immobilien/marktplatz/details/show/36512847",
+      "brightness_score": null,
+      "modernity_score": null,
+      "condition_score": null,
+      "spaciousness_score": null,
+      "kitchen_appeal_score": null,
+      "bathroom_appeal_score": null,
+      "_rank": {
+        "base_score": 0.0176,
+        "visual_boost": 0.0,
+        "profile_boost": 0.0,
+        "avoid_penalty": 0.0,
+        "final_score": 0.0106,
+        "reasons": []
+      }
+    }
+  ],
+  "explanations": {
+    "headline": "Five listings under CHF 3,000 across various Swiss locations, no region specified",
+    "caveats": [
+      "No city or region was provided, so results span Oeschgen, Bern, Zürich, Burgdorf, and Valangin.",
+      "The Zürich listing (CHF 3,000) sits exactly at the budget limit and is a short-term sublet (17 Apr–15 May only).",
+      "Room count and size preferences were not specified — range here is 2.5 to 3.5 rooms, 46–107 m²."
+    ],
+    "per_listing": [
+      {
+        "listing_id": "27375",
+        "why": "Oeschgen, 2.5 rooms, 107 m², CHF 1,950/month. Generous open-plan layout with balcony and elevator."
+      },
+      {
+        "listing_id": "27385",
+        "why": "Bern, 3.5 rooms, CHF 1,860/month. First letting; balcony, garage, fireplace, pet-friendly, wheelchair-accessible, Minergie-certified."
+      },
+      {
+        "listing_id": "212032",
+        "why": "Zürich, 3.5 rooms, 90 m², CHF 3,000/month. Furnished, Minergie-certified, balcony — but short-term sublet only (≈4 weeks)."
+      },
+      {
+        "listing_id": "6967c6efbb38f258c15febd6",
+        "why": "Burgdorf, 2.5 rooms, 46 m², CHF 1,235/month. Most affordable option; compact but has balcony and elevator."
+      },
+      {
+        "listing_id": "27405",
+        "why": "Valangin, 3 rooms, 75 m², CHF 1,400/month. Child- and pet-friendly; French-speaking region (Neuchâtel area)."
+      }
+    ]
+  },
+  "profile_fields_used": [],
+  "profile_updated": false,
+  "profile_snapshot": null
+}

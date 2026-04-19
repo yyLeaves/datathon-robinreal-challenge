@@ -1,0 +1,52 @@
+[
+  {
+    "turn": 1,
+    "query": "We are a family with one child and are looking in Zug or Baar for an apartment with 3.5 or 4 rooms, at least 85 m², budget up to CHF 3600, ideally in an area with good schools, little traffic, and some greenery nearby.",
+    "ids": [
+      "213497",
+      "59082",
+      "221406"
+    ],
+    "prices": [
+      2420,
+      4090,
+      3970
+    ]
+  },
+  {
+    "turn": 2,
+    "query": "That is a good start. Can we see something a bit cheaper, ideally under CHF 3000?",
+    "ids": [
+      "27375",
+      "27385",
+      "212032",
+      "6967c6efbb38f258c15febd6",
+      "27405"
+    ],
+    "prices": [
+      1950,
+      1860,
+      3000,
+      1235,
+      1400
+    ]
+  },
+  {
+    "turn": 3,
+    "query": "I like listing from turn 2. Now show me similar apartments but in Zug city center instead.",
+    "ids": [
+      "59628",
+      "212125",
+      "27218",
+      "219378",
+      "59851"
+    ],
+    "prices": [
+      3600,
+      5000,
+      3400,
+      2172,
+      2575
+    ]
+  }
+]

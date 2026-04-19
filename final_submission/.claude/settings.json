@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/Scripts/pip install *)",
+      "Bash(.venv/bin/pip install *)",
+      "Bash(.venv/Scripts/python.exe -m pip install anthropic)",
+      "Bash(.venv/Scripts/python.exe -m uv pip install anthropic)",
+      "Bash(uv pip *)",
+      "Bash(.venv/Scripts/python.exe -c \"import dotenv\")",
+      "Bash(.venv/Scripts/python.exe -c \"import debugpy; print\\(debugpy.__version__\\)\")",
+      "Bash(.venv/Scripts/python.exe -c ' *)"
+    ],
+    "additionalDirectories": [
+      "e:\\dev\\tammy\\dev\\spring_2026\\datathon\\robinreal_datathon_challenge_2026"
+    ]
+  }
+}
